@@ -29,7 +29,7 @@
   ],
   "author": "tngan",
   "repository": {
-    "url": "https://github.com/Authing/samlify",
+    "url": "git+https://github.com/Authing/samlify.git",
     "type": "git"
   },
   "license": "MIT",
@@ -42,7 +42,10 @@
     "xml": "^1.0.0",
     "xml-crypto": "^1.1.4",
     "xmldom": "^0.1.19",
-    "xpath": "^0.0.27"
+    "xpath": "^0.0.27",
+    "@authenio/xml-encryption": "^0.11.2",
+    "libxml-xsd": "^0.5.2",
+    "node-xmllint": "^1.0.0"
   },
   "optionalDependencies": {
     "@authenio/xml-encryption": "^0.11.2",
@@ -60,5 +63,13 @@
     "nyc": "^11.9.0",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3333"
+  },
+  "bugs": {
+    "url": "https://github.com/Authing/samlify/issues"
+  },
+  "homepage": "https://github.com/Authing/samlify#readme",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
   }
 }
