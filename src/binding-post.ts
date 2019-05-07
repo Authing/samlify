@@ -40,7 +40,7 @@ function base64LoginRequest(referenceTagXPath: string, entity: any, customTagRep
         AssertionConsumerServiceURL: metadata.sp.getAssertionConsumerService(binding.post),
         EntityID: metadata.sp.getEntityID(),
         AllowCreate: spSetting.allowCreate,
-        NameIDFormat: namespace.format[spSetting.loginNameIDFormat] || namespace.format.emailAddress,
+        NameIDFormat: metadata.sp.getNameIDFormat() || namespace.format[spSetting.loginNameIDFormat] || namespace.format.emailAddress,
       } as any);
     }
     if (metadata.idp.isWantAuthnRequestsSigned()) {
