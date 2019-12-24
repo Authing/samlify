@@ -3,7 +3,6 @@ import * as path from 'path';
 
 enum SchemaValidators {
   JAVAC = '@authenio/xsd-schema-validator',
-  LIBXML = 'libxml-xsd',
   XMLLINT = 'node-xmllint'
 }
 
@@ -25,7 +24,6 @@ const moduleResolver = (name: string) => {
 const getValidatorModule: GetValidatorModuleSpec = async () => {
 
   const selectedValidator: string = moduleResolver(SchemaValidators.JAVAC)
-    || moduleResolver(SchemaValidators.LIBXML)
     || moduleResolver(SchemaValidators.XMLLINT) || '';
 
   const xsd = 'saml-schema-protocol-2.0.xsd';
@@ -70,31 +68,6 @@ const getValidatorModule: GetValidatorModuleSpec = async () => {
               return resolve('SUCCESS_VALIDATE_XML');
             }
             return reject('ERR_INVALID_XML');
-          });
-        });
-      }
-    };
-  }
-
-  if (selectedValidator === SchemaValidators.LIBXML) {
-    const mod = await import (SchemaValidators.LIBXML);
-    return {
-      validate: (xml: string) => {
-        return new Promise((resolve, reject) => {
-          // https://github.com/albanm/node-libxml-xsd/issues/11
-          process.chdir(path.resolve(__dirname, '../schemas'));
-          mod.parseFile(path.resolve(xsd), (err, schema) => {
-            if (err) {
-              console.error('[ERROR] validateXML', err);
-              return reject('ERR_INVALID_XML');
-            }
-            schema.validate(xml, (techErrors, validationErrors) => {
-              if (techErrors !== null || validationErrors !== null) {
-                console.error(`this is not a valid saml response with errors: ${validationErrors}`);
-                return reject('ERR_EXCEPTION_VALIDATE_XML');
-              }
-              return resolve('SUCCESS_VALIDATE_XML');
-            });
           });
         });
       }
